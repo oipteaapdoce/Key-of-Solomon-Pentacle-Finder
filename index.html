@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c0d10">
+<meta name="color-scheme" content="dark">
+<title>Key of Solomon Pentacle Finder</title>
+<link rel="manifest" href="./manifest.json">
+<style>
+:root{--obsidian:#0c0d10;--surface:#12151b;--surface2:#171b23;--gold:#d4af37;--goldsoft:#a88a2f;--line:#1e293b;--parchment:#e2e8f0;--muted:#94a3b8;--radius:16px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0;background:var(--obsidian);color:var(--parchment);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+button,input{font:inherit}
+.app{height:100dvh;display:flex;flex-direction:column;overflow:hidden;background:radial-gradient(circle at 80% -10%,rgba(212,175,55,.09),transparent 34%),var(--obsidian)}
+.app-header{flex:none;padding:calc(env(safe-area-inset-top) + 14px) 16px 12px;border-bottom:1px solid var(--line);background:rgba(12,13,16,.96)}
+.eyebrow{margin:0 0 3px;color:var(--gold);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase}
+h1{font-family:ui-serif,Georgia,serif;font-size:clamp(1.2rem,5vw,1.5rem);line-height:1.15;margin:0}
+.subtitle{margin:4px 0 0;color:var(--muted);font-size:.85rem;line-height:1.45}
+.view{flex:1;min-height:0;overflow-y:auto;padding:16px 16px 28px}
+.panel{display:none;max-width:880px;margin:0 auto}
+.panel.active{display:block}
+.card{background:linear-gradient(145deg,rgba(23,27,35,.98),rgba(18,21,27,.98));border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin:0 0 14px}
+.card h2{font-family:ui-serif,Georgia,serif;font-size:1.3rem;margin:0 0 6px}
+.card p{margin:0 0 10px;color:var(--muted);font-size:.9rem;line-height:1.5}
+.card p.dark{color:var(--parchment)}
+label{display:block;color:var(--muted);font-size:.8rem;margin:0 0 6px}
+input[type="search"]{width:100%;min-height:48px;border:1px solid var(--line);border-radius:12px;background:#0f1218;color:var(--parchment);padding:10px 12px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 1px;scrollbar-width:none}
+.chip{flex:none;min-height:44px;border:1px solid var(--line);background:var(--surface);color:var(--parchment);border-radius:999px;padding:9px 14px;cursor:pointer}
+.chip.active{border-color:var(--gold);color:#fff4bd;background:rgba(212,175,55,.13)}
+.result{border:1px solid var(--line);border-radius:12px;padding:13px;margin:0 0 10px;background:#0f1218;cursor:pointer;text-align:left;width:100%;color:var(--parchment)}
+.result strong{font-family:ui-serif,Georgia,serif;font-size:1.05rem}
+.result span{display:block;color:var(--muted);font-size:.88rem;line-height:1.45;margin-top:4px}
+.meta{color:var(--gold);font-size:.78rem;letter-spacing:.04em;margin-top:6px}
+.sold{display:inline-block;margin-top:8px;border:1px solid var(--gold);color:#fff4bd;border-radius:999px;padding:4px 10px;font-size:.78rem}
+.detail{border:1px solid var(--goldsoft);border-radius:12px;padding:14px;margin:0 0 14px;background:rgba(212,175,55,.08)}
+.detail h3{margin:0 0 8px;font-family:ui-serif,Georgia,serif}
+.detail p{color:var(--parchment);line-height:1.55;margin:0 0 8px}
+.nav{flex:none;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);background:#0b0d11;padding-bottom:env(safe-area-inset-bottom)}
+.nav button{min-height:56px;background:none;border:0;color:var(--muted);cursor:pointer;font-size:.85rem}
+.nav button.active{color:#fff4bd;border-top:2px solid var(--gold)}
+.notice{font-size:.85rem;color:var(--muted);line-height:1.5}
+.pent-img{display:block;width:100%;max-width:280px;height:auto;margin:12px auto;background:#000;border:1px solid var(--goldsoft);border-radius:12px}
+.thumb{float:right;width:72px;height:72px;object-fit:contain;background:#000;border:1px solid var(--line);border-radius:10px;margin:0 0 8px 12px}
+.result{overflow:hidden}
+.hero-img{display:block;width:100%;height:auto;border-radius:12px;margin:10px 0 0;border:1px solid var(--line)}
+.hero-cap{margin:6px 0 0;color:var(--muted);font-size:.78rem;line-height:1.4}
+input[type="date"],input[type="number"],select{width:100%;min-height:48px;border:1px solid var(--line);border-radius:12px;background:#0f1218;color:var(--parchment);padding:10px 12px;margin:0 0 10px}
+.hour-row{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin:0 0 8px;background:#0f1218}
+.hour-row.current{border-color:var(--gold);background:rgba(212,175,55,.13)}
+.hour-row .glyph{font-size:1.2rem;width:28px;text-align:center}
+.hour-row .times{margin-left:auto;color:var(--muted);font-size:.88rem}
+.period-title{font-family:ui-serif,Georgia,serif;font-size:1.1rem;margin:14px 0 8px}
+a{color:#fff4bd}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="app-header">
+<p class="eyebrow">Enochian.org companion</p>
+<h1>Key of Solomon Pentacle Finder</h1>
+<p class="subtitle">Which pentacle for which purpose, from the 44 pentacles in Mathers, plus the general pentacle.</p>
+<img class="hero-img" src="./images/hero-engraving.jpg" alt="Athena engraving a copper pentacle disc by hand">
+<p class="hero-cap">Main image: Athena engraving the 5th Pentacle of Venus, on copper. Photo from her own video still.</p>
+</header>
+<main class="view" id="mainView">
+<section class="panel active" id="panel-finder" aria-label="Finder">
+<div class="card">
+<h2>Finder</h2>
+<p>Type a purpose in plain words, for example love, treasure, travel, protection, dreams, or health.</p>
+<label for="q">Search by purpose</label>
+<input type="search" id="q" placeholder="Try: love, treasure, travel" autocomplete="off">
+<div class="chips" id="quickChips"></div>
+</div>
+<div id="detail"></div>
+<div id="results"></div>
+<div class="card" id="finderNote">
+<h2>What this Finder covers</h2>
+<p class="dark">The 44 pentacles: Saturn 7, Jupiter 7, Mars 7, Sun 7, Venus 5, Mercury 5, and Moon 6, plus the general pentacle, listed separately.</p>
+<p>Seal images are now included, from Athena's own Drive GIFs, matched by planet and ordinal. No seal was drawn, copied from another source, or faked for this app.</p>
+<p>Shop links will be added after a live page check. No shop URL is included in v1.</p>
+</div>
+</section>
+<section class="panel" id="panel-browse" aria-label="Browse by planet">
+<div class="card">
+<h2>Browse by planet</h2>
+<p>Choose a planet, then tap a pentacle for its full purpose, metal, and colour.</p>
+<div class="chips" id="planetChips"></div>
+</div>
+<div id="detailBrowse"></div>
+<div id="browseResults"></div>
+</section>
+<section class="panel" id="panel-hours" aria-label="Planetary hours">
+<div class="card">
+<h2>Planetary hours</h2>
+<p class="dark">Pentacles are made in the day and hour proper to the planet, per Mathers, chapter 18. This tab uses the same unequal-hour method as the Grimoire Companion: sunrise to sunset divided into 12 day hours, sunset to next sunrise into 12 night hours, following the Chaldean sequence Saturn, Jupiter, Mars, Sun, Venus, Mercury, Moon.</p>
+<p>Times use the clock and time zone on this device. Nothing is sent anywhere. Near the polar circles, sunrise or sunset may not occur on a selected date.</p>
+<label for="ph-date">Date</label>
+<input type="date" id="ph-date">
+<label for="ph-lat">Latitude</label>
+<input type="number" id="ph-lat" inputmode="decimal" min="-90" max="90" step="any" placeholder="e.g. 54.40">
+<label for="ph-lon">Longitude</label>
+<input type="number" id="ph-lon" inputmode="decimal" min="-180" max="180" step="any" placeholder="e.g. -126.65">
+<label for="ph-planet">Highlight hours for</label>
+<select id="ph-planet"><option value="">All planets</option><option>Saturn</option><option>Jupiter</option><option>Mars</option><option>Sun</option><option>Venus</option><option>Mercury</option><option>Moon</option></select>
+<button type="button" class="chip" id="ph-location">Use my location</button>
+<button type="button" class="chip" id="ph-calc">Calculate planetary hours</button>
+<p class="notice" id="ph-status" role="status"></p>
+</div>
+<div class="card" id="ph-result">
+<p class="dark" id="ph-ruler">Choose a date and location, then calculate.</p>
+<p id="ph-current"></p>
+<div id="ph-hours"></div>
+</div>
+</section>
+<section class="panel" id="panel-about" aria-label="About">
+<div class="card">
+<h2>About and source</h2>
+<p class="dark">Purposes follow S. L. MacGregor Mathers, The Key of Solomon the King, for Athena to approve or replace with her own edition.</p>
+<p>Planet metal and colour follow Mathers, chapter 18 only:</p>
+<p class="dark">Saturn: lead, black. Jupiter: tin, celestial blue. Mars: iron, red. Sun: gold, yellow. Venus: copper, green. Mercury: mixed metals, mixed colours. Moon: silver, silver.</p>
+<p>Seal images: created by Athena at enochian.org, using the Mathers plates as a base. One image per pentacle, matched by planet and ordinal, in her own coloured versions. No seal was invented for this app.</p>
+<p>App idea: Athena's own. This Finder, its purpose-first layout, and its choice of pentacles come from her, at enochian.org.</p>
+<p>Only these pentacles are marked as sold by Enochian.org, based on her live KEEP_LIVE catalog: 1st Pentacle of Saturn, 1st Pentacle of the Sun, and 1st to 5th Pentacles of Venus. Other pentacles in this Finder are reference only, and are not marked as sold.</p>
+<p>Shop links will be added after a live page check.</p>
+<p>Planetary hours: ported from the Grimoire Companion's timing code, same unequal-hour method, sunrise to sunset and sunset to next sunrise, Chaldean sequence. No astrology section was added, per Athena's correction: this is planetary timing for the pentacles, not a horoscope or chart section.</p>
+<p class="notice">This is a website-first PWA, version 2.3, with images, the engraving main image, planetary hours, and Athena's image and idea credit. It is not a Play package, and nothing in this build posts anything or changes the shop.</p>
+</div>
+</section>
+</main>
+<nav class="nav" aria-label="Sections">
+<button type="button" class="active" data-tab="finder">Finder</button>
+<button type="button" data-tab="browse">Browse</button>
+<button type="button" data-tab="hours">Hours</button>
+<button type="button" data-tab="about">About</button>
+</nav>
+</div>
+<script>
+const PLANETS={
+Saturn:{glyph:"\u2644",metal:"lead",colour:"black"},
+Jupiter:{glyph:"\u2643",metal:"tin",colour:"celestial blue"},
+Mars:{glyph:"\u2642",metal:"iron",colour:"red"},
+Sun:{glyph:"\u2609",metal:"gold",colour:"yellow"},
+Venus:{glyph:"\u2640",metal:"copper",colour:"green"},
+Mercury:{glyph:"\u263f",metal:"mixed metals",colour:"mixed colours"},
+Moon:{glyph:"\u263d",metal:"silver",colour:"silver"}
+};
+const DATA=[
+{id:"saturn-1",planet:"Saturn",ordinal:"1st",name:"1st Pentacle of Saturn",purpose:"This pentacle is of great value and utility for striking terror into the spirits. Upon its being shown to them they submit, and kneeling upon the earth before it, they obey.",keys:"terror spirits submit obey fear protection",sold:true},
+{id:"saturn-2",planet:"Saturn",ordinal:"2nd",name:"2nd Pentacle of Saturn",purpose:"This pentacle is of great value against adversities, and of especial use in repressing the pride of the spirits.",keys:"adversities adversity pride spirits protection trouble",sold:false},
+{id:"saturn-3",planet:"Saturn",ordinal:"3rd",name:"3rd Pentacle of Saturn",purpose:"This should be made within the magical circle, and it is good for use at night when thou invokest the spirits of the nature of Saturn.",keys:"night circle invoke spirits saturn",sold:false},
+{id:"saturn-4",planet:"Saturn",ordinal:"4th",name:"4th Pentacle of Saturn",purpose:"This pentacle serveth principally for executing all the experiments and operations of ruin, destruction, and death. When made in full perfection, it serveth also for those spirits which bring news, when thou invokest them from the side of the south.",keys:"ruin destruction death news spirits south",sold:false},
+{id:"saturn-5",planet:"Saturn",ordinal:"5th",name:"5th Pentacle of Saturn",purpose:"This pentacle defendeth those who invoke the spirits of Saturn during the night, and chaseth away the spirits which guard treasures.",keys:"night protection treasures treasure guard spirits",sold:false},
+{id:"saturn-6",planet:"Saturn",ordinal:"6th",name:"6th Pentacle of Saturn",purpose:"Around this pentacle is each name symbolised as it should be. The person against whom thou shalt pronounce it shall be obsessed by demons.",keys:"demons obsessed person pronounce",sold:false},
+{id:"saturn-7",planet:"Saturn",ordinal:"7th",name:"7th Pentacle of Saturn",purpose:"This pentacle is fit for exciting earthquakes, seeing that the power of each order of angels herein invoked is sufficient to make the whole universe tremble.",keys:"earthquake earthquakes angels tremble",sold:false},
+{id:"jupiter-1",planet:"Jupiter",ordinal:"1st",name:"1st Pentacle of Jupiter",purpose:"This serveth to invoke the spirits of Jupiter, and especially those whose names are written around the pentacle, among whom Parasiel is the lord and master of treasures, and teacheth how to become possessor of places wherein they are.",keys:"invoke spirits treasures treasure places wealth",sold:false},
+{id:"jupiter-2",planet:"Jupiter",ordinal:"2nd",name:"2nd Pentacle of Jupiter",purpose:"This is proper for acquiring glory, honours, dignities, riches, and all kinds of good, together with great tranquillity of mind. It also serves to discover treasures and chase away the spirits who preside over them.",keys:"glory honours honors dignities riches wealth money treasure treasures peace mind good",sold:false},
+{id:"jupiter-3",planet:"Jupiter",ordinal:"3rd",name:"3rd Pentacle of Jupiter",purpose:"This defendeth and protecteth those who invoke and cause the spirits to come. When they appear, show unto them this pentacle, and immediately they will obey.",keys:"protection defend protect invoke spirits obey come",sold:false},
+{id:"jupiter-4",planet:"Jupiter",ordinal:"4th",name:"4th Pentacle of Jupiter",purpose:"It serveth to acquire riches and honour, and to possess much wealth. Its angel is Bariel. It should be engraved upon silver in the day and hour of Jupiter when he is in the sign Cancer.",keys:"riches wealth money honour honor",sold:false},
+{id:"jupiter-5",planet:"Jupiter",ordinal:"5th",name:"5th Pentacle of Jupiter",purpose:"This hath great power. It serveth for assured visions. Jacob, being armed with this pentacle, beheld the ladder which reached unto heaven.",keys:"visions vision dreams assured heaven ladder",sold:false},
+{id:"jupiter-6",planet:"Jupiter",ordinal:"6th",name:"6th Pentacle of Jupiter",purpose:"It serveth for protection against all earthly dangers, by regarding it each day devoutedly, and repeating the versicle which surroundeth it. Thus shalt thou never perish.",keys:"protection dangers earthly danger perish",sold:false},
+{id:"jupiter-7",planet:"Jupiter",ordinal:"7th",name:"7th Pentacle of Jupiter",purpose:"It hath great power against poverty, if thou considerest it with devotion, repeating the versicle. It serveth furthermore to drive away those spirits who guard treasures, and to discover the same.",keys:"poverty poor treasures treasure wealth discover guard",sold:false},
+{id:"mars-1",planet:"Mars",ordinal:"1st",name:"1st Pentacle of Mars",purpose:"It is proper for invoking spirits of the nature of Mars, especially those which are written in the pentacle.",keys:"invoke spirits mars war",sold:false},
+{id:"mars-2",planet:"Mars",ordinal:"2nd",name:"2nd Pentacle of Mars",purpose:"This pentacle serveth with great success against all kinds of diseases, if it be applied unto the afflicted part.",keys:"disease diseases health healing sick afflicted illness",sold:false},
+{id:"mars-3",planet:"Mars",ordinal:"3rd",name:"3rd Pentacle of Mars",purpose:"It is of great value for exciting war, wrath, discord, and hostility, also for resisting enemies, and striking terror into rebellious spirits.",keys:"war wrath discord hostility enemies enemy terror resistance",sold:false},
+{id:"mars-4",planet:"Mars",ordinal:"4th",name:"4th Pentacle of Mars",purpose:"It is of great virtue and power in war, wherefore without doubt it will give thee victory.",keys:"war victory power battle",sold:false},
+{id:"mars-5",planet:"Mars",ordinal:"5th",name:"5th Pentacle of Mars",purpose:"Write thou this pentacle upon virgin parchment or paper, because it is terrible unto the demons, and at its sight and aspect they will obey thee, for they cannot resist its presence.",keys:"demons obey terrible resist",sold:false},
+{id:"mars-6",planet:"Mars",ordinal:"6th",name:"6th Pentacle of Mars",purpose:"It hath so great virtue that, being armed therewith, if thou art attacked by any one, thou shalt neither be injured nor wounded when thou fightest with him, and his own weapons shall turn against him.",keys:"attack attacked protection injury wounded weapons fight defence defense",sold:false},
+{id:"mars-7",planet:"Mars",ordinal:"7th",name:"7th Pentacle of Mars",purpose:"Write thou this upon virgin parchment or paper with the blood of a bat, in the day and hour of Mars, and uncover it within the circle, invoking the demons whose names are therein written, and thou shalt immediately see hail and tempest.",keys:"hail tempest storm demons circle",sold:false},
+{id:"sun-1",planet:"Sun",ordinal:"1st",name:"1st Pentacle of the Sun",purpose:"The countenance of Shaddai the Almighty, at whose aspect all creatures obey, and the angelic spirits do reverence on bended knees.",keys:"shaddai almighty creatures obey reverence spirits metatron",sold:true},
+{id:"sun-2",planet:"Sun",ordinal:"2nd",name:"2nd Pentacle of the Sun",purpose:"This pentacle, and the preceding and following, belong to the nature of the Sun. They serve to repress the pride and arrogance of the solar spirits, which are altogether proud and arrogant by their nature.",keys:"pride arrogance solar spirits repress",sold:false},
+{id:"sun-3",planet:"Sun",ordinal:"3rd",name:"3rd Pentacle of the Sun",purpose:"This serveth, in addition to the effects of the two preceding, to acquire kingdom and empire, to inflict loss, and to acquire renown and glory, especially through the name of God, Tetragrammaton, which therein is twelve times contained.",keys:"kingdom empire renown glory loss tetragrammaton",sold:false},
+{id:"sun-4",planet:"Sun",ordinal:"4th",name:"4th Pentacle of the Sun",purpose:"This serveth to enable thee to see the spirits when they appear invisible unto those who invoke them, because, when thou hast uncovered it, they will immediately appear visible.",keys:"see spirits invisible visible appear",sold:false},
+{id:"sun-5",planet:"Sun",ordinal:"5th",name:"5th Pentacle of the Sun",purpose:"It serveth to invoke those spirits who can transport thee from one place unto another, over a long distance and in short time.",keys:"transport travel journey distance place move",sold:false},
+{id:"sun-6",planet:"Sun",ordinal:"6th",name:"6th Pentacle of the Sun",purpose:"It serveth excellently for the operation of invisibility, when correctly made.",keys:"invisibility invisible unseen hidden",sold:false},
+{id:"sun-7",planet:"Sun",ordinal:"7th",name:"7th Pentacle of the Sun",purpose:"If any be by chance imprisoned or detained in fetters of iron, at the presence of this pentacle, which should be engraved in gold on the day and hour of the Sun, he will be immediately delivered and set at liberty.",keys:"imprisoned prison fetters liberty freedom delivered release",sold:false},
+{id:"venus-1",planet:"Venus",ordinal:"1st",name:"1st Pentacle of Venus",purpose:"This and those following serve to control the spirits of Venus, and especially those herein written.",keys:"control spirits venus",sold:true},
+{id:"venus-2",planet:"Venus",ordinal:"2nd",name:"2nd Pentacle of Venus",purpose:"These pentacles are also proper for obtaining grace and honour, and for all things which belong unto Venus, and for accomplishing all thy desires herein.",keys:"grace honour honor desires venus love wishes",sold:true},
+{id:"venus-3",planet:"Venus",ordinal:"3rd",name:"3rd Pentacle of Venus",purpose:"This, if it be only shown unto any person, serveth to attract love. Its angel Monachiel should be invoked in the day and hour of Venus, at one o'clock or at eight.",keys:"attract love shown person monachiel",sold:true},
+{id:"venus-4",planet:"Venus",ordinal:"4th",name:"4th Pentacle of Venus",purpose:"It is of great power, since it compels the spirits of Venus to obey, and to force on the instant any person thou wishest to come unto thee.",keys:"compel spirits obey person come bring",sold:true},
+{id:"venus-5",planet:"Venus",ordinal:"5th",name:"5th Pentacle of Venus",purpose:"When it is only showed unto any person soever, it inciteth and exciteth wonderfully unto love.",keys:"love shown person incite excite attract",sold:true},
+{id:"mercury-1",planet:"Mercury",ordinal:"1st",name:"1st Pentacle of Mercury",purpose:"It serveth to invoke the spirits who are under the firmament.",keys:"invoke spirits firmament",sold:false},
+{id:"mercury-2",planet:"Mercury",ordinal:"2nd",name:"2nd Pentacle of Mercury",purpose:"The spirits herein written serve to bring to effect and to grant things which are contrary unto the order of nature, and which are not contained under any other head. They easily give answer, but they can with difficulty be seen.",keys:"nature contrary answer seen spirits",sold:false},
+{id:"mercury-3",planet:"Mercury",ordinal:"3rd",name:"3rd Pentacle of Mercury",purpose:"This and the following serve to invoke the spirits subject unto Mercury, and especially those who are written in this pentacle.",keys:"invoke spirits mercury",sold:false},
+{id:"mercury-4",planet:"Mercury",ordinal:"4th",name:"4th Pentacle of Mercury",purpose:"This is further proper to acquire the understanding and knowledge of all things created, and to seek out and penetrate into hidden things, and to command those spirits which are called Allatori to perform embassies. They obey very readily.",keys:"understanding knowledge hidden things learning embassies messages allatori",sold:false},
+{id:"mercury-5",planet:"Mercury",ordinal:"5th",name:"5th Pentacle of Mercury",purpose:"This commandeth the spirits of Mercury, and serveth to open doors in whatever way they may be closed, and nothing it may encounter can resist it.",keys:"open doors closed gates command spirits",sold:false},
+{id:"moon-1",planet:"Moon",ordinal:"1st",name:"1st Pentacle of the Moon",purpose:"This and the following serve to call forth and invoke the spirits of the Moon, and it further serveth to open doors, in whatever way they may be fastened.",keys:"invoke spirits moon open doors fastened gates",sold:false},
+{id:"moon-2",planet:"Moon",ordinal:"2nd",name:"2nd Pentacle of the Moon",purpose:"This serveth against all perils and dangers by water, and if it should chance that the spirits of the Moon should excite and cause great rain and exceeding tempests about the circle, in order to astonish and terrify thee, on showing unto them this pentacle, it will all speedily cease.",keys:"water perils dangers rain tempests storms protection",sold:false},
+{id:"moon-3",planet:"Moon",ordinal:"3rd",name:"3rd Pentacle of the Moon",purpose:"This, being duly borne with thee when upon a journey, if it be properly made, serveth against all attacks by night, and against every kind of danger and peril by water.",keys:"journey travel night attacks danger water protection",sold:false},
+{id:"moon-4",planet:"Moon",ordinal:"4th",name:"4th Pentacle of the Moon",purpose:"This defendeth thee from all evil sorceries, and from all injury unto soul or body. Its angel, Sophiel, giveth the knowledge of the virtue of all herbs and stones, and unto whomsoever shall name him, he will procure the knowledge of all.",keys:"protection sorcery sorceries injury herbs stones knowledge sophiel",sold:false},
+{id:"moon-5",planet:"Moon",ordinal:"5th",name:"5th Pentacle of the Moon",purpose:"It serveth to have answers in sleep. Its angel Iachadiel serveth unto destruction and loss, as well as unto the destruction of enemies. Thou mayest also call upon him by Abdon and Dale against all phantoms of the night, and to summon the souls of the departed from Hades.",keys:"answers sleep dreams night phantoms enemies destruction",sold:false},
+{id:"moon-6",planet:"Moon",ordinal:"6th",name:"6th Pentacle of the Moon",purpose:"This is wonderfully good, and serveth excellently to excite and cause heavy rains, if it be engraved upon a plate of silver, and if it be placed under water, as long as it remaineth there, there will be rain. It should be engraved, drawn, or written in the day and hour of the Moon.",keys:"rain rains water silver heavy",sold:false}
+];
+const GREAT={id:"great",planet:"General",ordinal:"General",name:"Great (Grand) Pentacle",purpose:"This is the general pentacle. It serves to convene all spirits. When shown to them, they will bow and obey you.",keys:"general convene spirits all bow obey",sold:false};
+function norm(s){return (s||"").toLowerCase().replace(/[^a-z0-9 ]+/g," ").replace(/\s+/g," ").trim();}
+function scoreEntry(q,entry){
+  const words=norm(q).split(" ").filter(Boolean);
+  if(!words.length) return 0;
+  const hay=norm(entry.name+" "+entry.planet+" "+entry.ordinal+" "+entry.purpose+" "+entry.keys);
+  let score=0;
+  for(const w of words){
+    if(hay.indexOf(w)>-1) score+=2;
+    if(norm(entry.keys).split(" ").indexOf(w)>-1) score+=2;
+    if(norm(entry.name).indexOf(w)>-1) score+=1;
+  }
+  if(norm(entry.purpose).indexOf(norm(q))>-1 && words.length>1) score+=3;
+  return score;
+}
+function searchEntries(q){
+  const words=norm(q).split(" ").filter(Boolean);
+  if(!words.length) return DATA.slice();
+  return DATA.map(function(e){return {e:e,s:scoreEntry(q,e)};}).filter(function(x){return x.s>0;}).sort(function(a,b){return b.s-a.s;}).map(function(x){return x.e;});
+}
+</script>
+<script>
+const $=function(id){return document.getElementById(id);};
+let activeTab="finder", activePlanet="Saturn", selected=null;
+function planetMeta(p){return PLANETS[p]||{glyph:"\u2726",metal:"",colour:""};}
+function imgFor(e){return "./images/"+e.ordinal+e.planet+".gif";}
+function cardHtml(e){
+  const m=planetMeta(e.planet);
+  return "<button type=\"button\" class=\"result\" data-id=\""+e.id+"\" aria-label=\"View "+e.name+"\"><img class=\"thumb\" src=\""+imgFor(e)+"\" alt=\""+e.name+" seal\" loading=\"lazy\"><strong>"+m.glyph+" "+e.name+"</strong><span>"+e.purpose+"</span><div class=\"meta\">"+e.planet+" \u00b7 Metal: "+m.metal+" \u00b7 Colour: "+m.colour+"</div>"+(e.sold?"<span class=\"sold\">Sold by Enochian.org</span>":"")+"</button>";
+}
+function detailHtml(e, mount){
+  const m=planetMeta(e.planet);
+  const isGreat=e.id==="great";
+  $(mount).innerHTML="<div class=\"detail\"><h3>"+(isGreat?"\u2726 ":""+m.glyph+" ")+e.name+"</h3>"+(isGreat?"":"<img class=\"pent-img\" src=\""+imgFor(e)+"\" alt=\""+e.name+" seal\">")+"<p>"+e.purpose+"</p><p>Planet: "+e.planet+". Metal: "+m.metal+". Colour: "+m.colour+".</p><p>"+(e.sold?"Sold by Enochian.org. Shop link will be added after a live page check.":"Not marked as sold by Enochian.org.")+"</p><p class=\"notice\">"+(isGreat?"No image for the general pentacle in this set.":"Image: Athena's Drive GIF for this pentacle, matched by planet and ordinal.")+"</p></div>";
+  $(mount).scrollIntoView({behavior:"smooth",block:"start"});
+}
+function renderFinder(){
+  const q=$("q").value;
+  const list=searchEntries(q);
+  const el=$("results");
+  if(!q.trim()){
+    el.innerHTML="<div class=\"card\"><p class=\"dark\">All 44 pentacles are listed below, in planet order. Type a purpose above to narrow them.</p></div>"+DATA.map(cardHtml).join("");
+  } else if(!list.length){
+    el.innerHTML="<div class=\"card\"><h2>No purposes match.</h2><p class=\"dark\">Try one of the purposes this Finder covers: love, grace, treasure, riches, protection, travel, journey, dreams, sleep, health, knowledge, hidden things, doors, water, rain, victory, invisibility, or spirits.</p><p>The Finder covers Saturn, Jupiter, Mars, Sun, Venus, Mercury, and Moon pentacles, plus the general pentacle.</p></div>";
+  } else {
+    el.innerHTML="<div class=\"card\"><p class=\"dark\">"+list.length+" result"+(list.length===1?"":"s")+" for \u201c"+q.replace(/</g,"&lt;")+"\u201d, shown first.</p></div>"+list.map(cardHtml).join("");
+  }
+  el.querySelectorAll("[data-id]").forEach(function(b){b.addEventListener("click",function(){const e=DATA.find(function(x){return x.id===b.getAttribute("data-id");}); if(e) detailHtml(e,"detail");});});
+}
+function renderBrowse(){
+  $("planetChips").innerHTML=Object.keys(PLANETS).map(function(p){return "<button type=\"button\" class=\"chip "+(p===activePlanet?"active":"")+"\" data-planet=\""+p+"\" aria-pressed=\""+(p===activePlanet)+ "\">"+PLANETS[p].glyph+" "+p+"</button>";}).join("");
+  $("planetChips").querySelectorAll("[data-planet]").forEach(function(b){b.addEventListener("click",function(){activePlanet=b.getAttribute("data-planet"); renderBrowse();});});
+  const list=DATA.filter(function(e){return e.planet===activePlanet;});
+  const m=planetMeta(activePlanet);
+  let html="<div class=\"card\"><h2>"+m.glyph+" "+activePlanet+"</h2><p class=\"dark\">Metal: "+m.metal+". Colour: "+m.colour+". "+list.length+" pentacle"+(list.length===1?"":"s")+".</p></div>"+list.map(cardHtml).join("");
+  if(activePlanet==="Saturn"){
+    html+="<div class=\"card\"><h2>General pentacle</h2><p>The Great (Grand) Pentacle is listed separately, and is not counted in the 44.</p><button type=\"button\" class=\"result\" data-id=\"great\"><strong>\u2726 Great (Grand) Pentacle</strong><span>"+GREAT.purpose+"</span></button></div>";
+  }
+  $("browseResults").innerHTML=html;
+  $("browseResults").querySelectorAll("[data-id]").forEach(function(b){b.addEventListener("click",function(){const id=b.getAttribute("data-id"); const e=id==="great"?GREAT:DATA.find(function(x){return x.id===id;}); if(e) detailHtml(e,"detailBrowse");});});
+}
+function showTab(name){
+  activeTab=name;
+  document.querySelectorAll(".panel").forEach(function(p){const on=p.id==="panel-"+name; p.classList.toggle("active",on);});
+  document.querySelectorAll(".nav button").forEach(function(b){b.classList.toggle("active",b.getAttribute("data-tab")===name);});
+  $("mainView").scrollTo({top:0});
+}
+$("quickChips").innerHTML=["love","treasure","travel","protection","dreams","health"].map(function(w){return "<button type=\"button\" class=\"chip\" data-q=\""+w+"\">"+w+"</button>";}).join("");
+$("quickChips").querySelectorAll("[data-q]").forEach(function(b){b.addEventListener("click",function(){$("q").value=b.getAttribute("data-q"); $("detail").innerHTML=""; renderFinder();});});
+$("q").addEventListener("input",function(){$("detail").innerHTML=""; renderFinder();});
+document.querySelectorAll(".nav button").forEach(function(b){b.addEventListener("click",function(){showTab(b.getAttribute("data-tab"));});});
+/* Planetary hours, ported from Grimoire Companion. Renamed helpers to avoid clashing with the Finder's own norm() search helper. */
+const PH_CHALDEAN=["Saturn","Jupiter","Mars","Sun","Venus","Mercury","Moon"];
+const PH_DAY_RULERS=["Sun","Moon","Mars","Mercury","Jupiter","Venus","Saturn"];
+function phDayOfYear(d){const start=new Date(d.getFullYear(),0,0);return Math.floor((d-start)/86400000);}
+function phNorm(v,max){v%=max;return v<0?v+max:v;}
+function phSolarEvent(d,lat,lon,rise){const N=phDayOfYear(d),lngHour=lon/15,t=N+(((rise?6:18)-lngHour)/24),M=(.9856*t)-3.289;let L=M+(1.916*Math.sin(M*Math.PI/180))+(.020*Math.sin(2*M*Math.PI/180))+282.634;L=phNorm(L,360);let RA=Math.atan(.91764*Math.tan(L*Math.PI/180))*180/Math.PI;RA=phNorm(RA,360);RA+=(Math.floor(L/90)*90)-(Math.floor(RA/90)*90);RA/=15;const sinDec=.39782*Math.sin(L*Math.PI/180),cosDec=Math.cos(Math.asin(sinDec));const cosH=(Math.cos(90.833*Math.PI/180)-(sinDec*Math.sin(lat*Math.PI/180)))/(cosDec*Math.cos(lat*Math.PI/180));if(cosH>1||cosH<-1)return null;let H=rise?360-Math.acos(cosH)*180/Math.PI:Math.acos(cosH)*180/Math.PI;H/=15;const T=H+RA-(.06571*t)-6.622,UT=phNorm(T-lngHour,24);let result=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate(),0,0,0)+UT*3600000);const target=d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate();for(let i=0;i<2;i++){const got=result.getFullYear()+"-"+result.getMonth()+"-"+result.getDate();if(got===target)break;result=new Date(result.getTime()+(result<d?86400000:-86400000));}return result;}
+function phFmt(d){return new Intl.DateTimeFormat([],{hour:"numeric",minute:"2-digit"}).format(d);}
+function phSelectedDate(){const v=$("ph-date").value;if(!v)return null;const parts=v.split("-").map(Number);return new Date(parts[0],parts[1]-1,parts[2],12);}
+function phCalc(){
+  const status=$("ph-status"),date=phSelectedDate(),lat=Number($("ph-lat").value),lon=Number($("ph-lon").value);
+  if(!date||!Number.isFinite(lat)||!Number.isFinite(lon)||$("ph-lat").value===""||$("ph-lon").value===""){status.textContent="Enter a date and a valid latitude and longitude, or use your location.";return;}
+  if(lat<-90||lat>90||lon<-180||lon>180){status.textContent="Latitude must be between -90 and 90; longitude between -180 and 180.";return;}
+  const next=new Date(date.getFullYear(),date.getMonth(),date.getDate()+1,12),sunrise=phSolarEvent(date,lat,lon,true),sunset=phSolarEvent(date,lat,lon,false),nextRise=phSolarEvent(next,lat,lon,true);
+  if(!sunrise||!sunset||!nextRise){$("ph-hours").innerHTML="";$("ph-current").textContent="Sunrise or sunset does not occur for this location and date.";status.textContent="Planetary hours cannot be divided on a polar day or polar night.";return;}
+  const dayLen=(sunset-sunrise)/12,nightLen=(nextRise-sunset)/12,ruler=PH_DAY_RULERS[date.getDay()],startIndex=PH_CHALDEAN.indexOf(ruler),highlight=$("ph-planet").value,now=new Date(),rows=[];
+  for(let i=0;i<24;i++){const start=i<12?new Date(sunrise.getTime()+dayLen*i):new Date(sunset.getTime()+nightLen*(i-12));const end=i<12?new Date(sunrise.getTime()+dayLen*(i+1)):new Date(sunset.getTime()+nightLen*(i-11));const planet=PH_CHALDEAN[(startIndex+i)%7];rows.push({i:i,start:start,end:end,planet:planet,current:now>=start&&now<end});}
+  const group=function(title,subset){return "<div><div class=\"period-title\">"+title+"</div>"+subset.map(function(h){return "<div class=\"hour-row"+(h.current?" current":"")+"\" style=\""+(highlight&&h.planet===highlight?"border-color:var(--gold);background:rgba(212,175,55,.13);":"")+"\"><span class=\"glyph\">"+PLANETS[h.planet].glyph+"</span><span>"+(h.i+1)+". "+h.planet+"</span><span class=\"times\">"+phFmt(h.start)+" - "+phFmt(h.end)+"</span></div>";}).join("")+"</div>";};
+  $("ph-ruler").textContent="Ruler of the day: "+PLANETS[ruler].glyph+" "+ruler+" - "+["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][date.getDay()];
+  const current=rows.find(function(h){return h.current;});
+  $("ph-current").textContent=current?"Current planetary hour: "+PLANETS[current.planet].glyph+" "+current.planet+" - "+phFmt(current.start)+" - "+phFmt(current.end):"Selected cycle: sunrise "+phFmt(sunrise)+" - sunset "+phFmt(sunset)+" - next sunrise "+phFmt(nextRise);
+  $("ph-hours").innerHTML=group("Day hours",rows.slice(0,12))+group("Night hours",rows.slice(12));
+  status.textContent="Planetary hours calculated for the selected coordinates."+(highlight?" Hours for "+highlight+" are highlighted in gold.":"");
+}
+function phUseLocation(){
+  const status=$("ph-status");
+  if(!navigator.geolocation){status.textContent="Location access is unavailable here. Enter latitude and longitude manually.";return;}
+  status.textContent="Requesting your location...";
+  navigator.geolocation.getCurrentPosition(function(pos){$("ph-lat").value=pos.coords.latitude.toFixed(5);$("ph-lon").value=pos.coords.longitude.toFixed(5);status.textContent="Location received. Calculating hours.";phCalc();},function(){status.textContent="Location was not available. Enter latitude and longitude manually.";});
+}
+(function(){const t=new Date();const pad=function(n){return String(n).padStart(2,"0");};$("ph-date").value=t.getFullYear()+"-"+pad(t.getMonth()+1)+"-"+pad(t.getDate());})();
+$("ph-calc").addEventListener("click",phCalc);
+$("ph-location").addEventListener("click",phUseLocation);
+$("ph-planet").addEventListener("change",function(){if($("ph-hours").innerHTML!=="") phCalc();});
+renderFinder(); renderBrowse();
+if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("./sw.js").catch(function(){});});}
+</script>
+</body>
+</html>
