@@ -45,6 +45,9 @@ input[type="search"]{width:100%;min-height:48px;border:1px solid var(--line);bor
 .thumb{float:right;width:72px;height:72px;object-fit:contain;background:#000;border:1px solid var(--line);border-radius:10px;margin:0 0 8px 12px}
 .result{overflow:hidden}
 .hero-img{display:block;width:100%;max-width:480px;height:auto;border-radius:12px;margin:10px auto 0;border:1px solid var(--line)}
+.front-title{font-family:ui-serif,Georgia,serif;font-size:1.6rem;line-height:1.15;margin:0 0 4px;color:#e2e8f0}
+.front-eyebrow{margin:0 0 3px;color:#d4af37;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase}
+.front-sub{margin:0 0 14px;color:#94a3b8;font-size:.85rem;line-height:1.45}
 .hero-cap{margin:6px 0 0;color:var(--muted);font-size:.78rem;line-height:1.4}
 input[type="date"],input[type="number"],select{width:100%;min-height:48px;border:1px solid var(--line);border-radius:12px;background:#0f1218;color:var(--parchment);padding:10px 12px;margin:0 0 10px}
 .hour-row{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin:0 0 8px;background:#0f1218}
@@ -57,13 +60,12 @@ a{color:#fff4bd}
 </head>
 <body>
 <div class="app">
-<header class="app-header">
-<p class="eyebrow">Enochian.org companion</p>
-<h1>Key of Solomon Pentacle Finder</h1>
-<p class="subtitle">Which pentacle for which purpose, from the 44 pentacles in Mathers, plus the general pentacle.</p>
-</header>
+
 <main class="view" id="mainView">
 <section class="panel active" id="panel-finder" aria-label="Finder">
+<p class="front-eyebrow">Enochian.org companion</p>
+<h1 class="front-title">Key of Solomon Pentacle Finder</h1>
+<p class="front-sub">Which pentacle for which purpose, from the 44 pentacles in Mathers, plus the general pentacle.</p>
 <div class="card">
 <h2>Finder</h2>
 <p>Type a purpose in plain words, for example love, treasure, travel, protection, dreams, or health.</p>

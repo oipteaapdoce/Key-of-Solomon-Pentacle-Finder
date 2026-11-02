@@ -1,5 +1,5 @@
 // Key of Solomon Pentacle Finder, service worker (offline shell cache)
-var CACHE = 'key-solomon-v5';
+var CACHE = 'key-solomon-v6';
 var CORE = [
   "./",
   "./index.html",
